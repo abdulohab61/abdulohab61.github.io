@@ -117,70 +117,7 @@ I'm a passionate software developer with experience in full-stack development an
 
 </details>
 
-<!-- Experience -->
-<details>
-<summary><strong>💼 অভিজ্ঞতা (Experience)</strong></summary>
-<br>
 
-### Work Experience
-
-**Software Engineer** at *Company Name* (2022 - Present)
-- Developed and maintained web applications using Laravel and Vue.js
-- Implemented RESTful APIs for mobile applications
-- Collaborated with cross-functional teams to deliver high-quality software solutions
-
-**Web Developer Intern** at *Company Name* (2021 - 2022)
-- Assisted in developing responsive web applications
-- Gained experience with PHP, JavaScript, and MySQL
-- Participated in code reviews and testing
-
-</details>
-
-<!-- Education -->
-<details>
-<summary><strong>🎓 শিক্ষা (Education)</strong></summary>
-<br>
-
-### Education
-
-**Bachelor of Science in Computer Science and Engineering**  
-*University Name* (2018 - 2022)
-- CGPA: X.XX/4.00
-- Coursework: Data Structures, Algorithms, Web Development, Database Management
-
-**Certifications**
-- CCNA Certification
-- Other relevant certifications
-
-</details>
-
-<!-- Blog Posts -->
-<details>
-<summary><strong>📝 ব্লগ পোস্ট (Blog Posts)</strong></summary>
-<br>
-
-### Latest Blog Posts
-<!-- BLOG-POST-LIST:START -->
-- [How to Build a RESTful API with Laravel](https://your-blog-link)
-- [Getting Started with Docker for Web Development](https://your-blog-link)
-- [Essential Git Commands Every Developer Should Know](https://your-blog-link)
-<!-- BLOG-POST-LIST:END -->
-
-</details>
-
-<!-- Hobbies and Interests -->
-<details>
-<summary><strong>🎮 শখ ও আগ্রহ (Hobbies & Interests)</strong></summary>
-<br>
-
-### Hobbies & Interests
-- Competitive Programming
-- Open Source Contribution
-- Reading Tech Blogs
-- Photography
-- Traveling
-
-</details>
 
 <!-- GitHub Profile Trophy -->
 <details>
@@ -190,47 +127,23 @@ I'm a passionate software developer with experience in full-stack development an
 [![trophy](https://github-profile-trophy.vercel.app/?username=AbdulOhab&theme=onedark)](https://github.com/AbdulOhab)
 
 </details>
-
-<!-- Visitor Count -->
-<div align="center">
-  
-### Visitor Count
-![Visitor Count](https://profile-counter.glitch.me/AbdulOhab/count.svg)
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <details>
-<summary><strong>Tools & Technologies</strong></summary>
+<summary><strong>📊 গিটহাব স্ট্যাটস (GitHub Stats)</strong></summary>
+<br>
 
+![Abdul's GitHub stats](https://github-readme-stats.vercel.app/api?username=AbdulOhab&show_icons=true&theme=radical)
+
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=AbdulOhab&layout=compact&theme=radical)
+
+[![GitHub Streak](https://streak-stats.demolab.com/?user=AbdulOhab&theme=radical)](https://git.io/streak-stats)
 
 </details>
 
-<details>
-<summary><strong>Cloud & Virtualization</strong></summary>
-
-</details>
-
-<details>
-<summary><strong>Content Management & SEO</strong></summary>
 
 
-</details>
-
-<details>
-<summary><strong>Operating Systems</strong></summary>
 
 
-</details>
+
+
+
+

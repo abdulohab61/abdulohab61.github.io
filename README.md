@@ -136,6 +136,7 @@ I'm a passionate software developer with experience in full-stack development an
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=AbdulOhab&layout=compact&theme=radical)
 
 [![GitHub Streak](https://streak-stats.demolab.com/?user=AbdulOhab&theme=radical)](https://git.io/streak-stats)
+[![GitHub Streak](https://streak-stats.demolab.com?user=AbdulOhab&theme=dark&border_radius=4.8&mode=weekly)](https://git.io/streak-stats)
 
 </details>
 

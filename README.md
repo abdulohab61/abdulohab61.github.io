@@ -138,6 +138,8 @@ I'm a passionate software developer with experience in full-stack development an
 [![GitHub Streak](https://streak-stats.demolab.com/?user=AbdulOhab&theme=radical)](https://git.io/streak-stats)
 [![GitHub Streak](https://streak-stats.demolab.com?user=AbdulOhab&theme=dark&border_radius=4.8&mode=weekly)](https://git.io/streak-stats)
 <a href="https://git.io/streak-stats"><img src="https://streak-stats.demolab.com?user=AbdulOhab&theme=dark&border_radius=4.8&mode=weekly" alt="GitHub Streak" /></a>
+
+[![GitHub Streak](https://streak-stats.demolab.com/?user=AbdulOhab&theme=dark)](https://git.io/streak-stats)
 </details>
 
 

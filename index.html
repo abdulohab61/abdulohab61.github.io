@@ -62,12 +62,98 @@
             <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Tab</kbd> to
             navigate •
             <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Enter</kbd> to
-            open •
+            search Google •
+            <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Ctrl+Enter</kbd> to
+            search all •
             <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Esc</kbd> to
             clear
           </p>
         </div>
       </div>
+
+      <!-- Search Engines Section -->
+      <section class="mb-8 fade-in">
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-4">
+            <h2 class="text-xl font-semibold text-nord-8 mb-2">🔍 Quick Search</h2>
+            <p class="text-nord-4 opacity-80 text-sm">
+              Search across multiple engines or pick your favorite
+            </p>
+          </div>
+          
+          <!-- Search Engines Grid -->
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
+            <button
+              id="searchGoogle"
+              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+              data-engine="Google"
+            >
+              <span class="text-2xl mb-1">🔍</span>
+              <span class="text-xs text-nord-6 font-medium">Google</span>
+            </button>
+            
+            <button
+              id="searchBing"
+              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+              data-engine="Bing"
+            >
+              <span class="text-2xl mb-1">🌐</span>
+              <span class="text-xs text-nord-6 font-medium">Bing</span>
+            </button>
+            
+            <button
+              id="searchYouTube"
+              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+              data-engine="YouTube"
+            >
+              <span class="text-2xl mb-1">📺</span>
+              <span class="text-xs text-nord-6 font-medium">YouTube</span>
+            </button>
+            
+            <button
+              id="searchYandex"
+              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+              data-engine="Yandex"
+            >
+              <span class="text-2xl mb-1">🔎</span>
+              <span class="text-xs text-nord-6 font-medium">Yandex</span>
+            </button>
+            
+            <button
+              id="searchDuckDuckGo"
+              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+              data-engine="DuckDuckGo"
+            >
+              <span class="text-2xl mb-1">🦆</span>
+              <span class="text-xs text-nord-6 font-medium">DuckDuckGo</span>
+            </button>
+            
+            <button
+              id="searchWikipedia"
+              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+              data-engine="Wikipedia"
+            >
+              <span class="text-2xl mb-1">📖</span>
+              <span class="text-xs text-nord-6 font-medium">Wikipedia</span>
+            </button>
+          </div>
+          
+          <!-- Search All Button -->
+          <div class="text-center">
+            <button
+              id="searchAllEngines"
+              class="px-6 py-3 rounded-lg bg-nord-11 text-nord-0 font-medium hover:bg-nord-12 transition-all transform hover:scale-105"
+            >
+              🚀 Search All Engines
+            </button>
+            <div class="mt-2">
+              <small class="text-nord-4 opacity-60">
+                Opens multiple tabs - make sure popups are allowed
+              </small>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Bookmarks Section -->
       <main class="flex-1 fade-in">
@@ -110,6 +196,90 @@
               data-category="entertainment"
             >
               Entertainment
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="ai"
+            >
+              AI Tools
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="search"
+            >
+              Search
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="productivity"
+            >
+              Productivity
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="study"
+            >
+              Study
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="application"
+            >
+              Applications
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="pdf"
+            >
+              PDF Tools
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="software"
+            >
+              Software
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="algorithms"
+            >
+              Algorithms
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="cp"
+            >
+              Competitive Programming
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="downloader"
+            >
+              Downloaders
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="videos"
+            >
+              Videos
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="blog"
+            >
+              Blogs
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="news"
+            >
+              News
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="torrent"
+            >
+              Archives
             </button>
           </div>
         </div>

@@ -78,6 +78,33 @@ body {
   animation: fadeIn 0.5s ease-in;
 }
 
+/* Search Engine Buttons */
+.search-engine-btn {
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.search-engine-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-engine-btn:active {
+  transform: translateY(0);
+}
+
+/* Search All Button States */
+#searchAllEngines:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+#searchAllEngines:disabled:hover {
+  transform: none !important;
+  background-color: var(--nord-11) !important;
+}
+
 .bookmark-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

@@ -1,7 +1,12 @@
 import "./style.css";
 import type { Category } from "./data.js";
 import { BookmarkManager } from "./bookmarks.js";
-import { isValidURL } from "./utils.js";
+import {
+  isValidURL,
+  searchInEngine,
+  searchInAllEngines,
+  searchEngines,
+} from "./utils.js";
 
 // Global variables
 let bookmarkManager: BookmarkManager;
@@ -48,8 +53,67 @@ function setupEventListeners(): void {
   // Global keyboard shortcuts
   document.addEventListener("keydown", handleGlobalKeyboard);
 
+  // Search engines event listeners
+  setupSearchEngineListeners();
+
   // Goose personality
   addGoosePersonality();
+}
+
+// Setup search engines event listeners
+function setupSearchEngineListeners(): void {
+  // Individual search engine buttons
+  const searchEngineButtons = document.querySelectorAll(".search-engine-btn");
+  searchEngineButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const engineName = btn.getAttribute("data-engine");
+      const query = searchInput.value.trim();
+
+      if (query === "") {
+        alert("Please enter a search query.");
+        return;
+      }
+
+      if (engineName) {
+        const engine = searchEngines.find((e) => e.name === engineName);
+        if (engine) {
+          searchInEngine(query, engine);
+          // Clear search input after search
+          searchInput.value = "";
+        }
+      }
+    });
+  });
+
+  // Search all engines button
+  const searchAllButton = document.getElementById("searchAllEngines");
+  if (searchAllButton) {
+    searchAllButton.addEventListener("click", () => {
+      const query = searchInput.value.trim();
+
+      if (query === "") {
+        alert("Please enter a search query.");
+        return;
+      }
+
+      // Update button text temporarily
+      const originalText = searchAllButton.innerHTML;
+      searchAllButton.innerHTML = "🚀 Searching...";
+      searchAllButton.setAttribute("disabled", "true");
+
+      // Call search function
+      searchInAllEngines(query);
+
+      // Reset button after delay
+      setTimeout(() => {
+        searchAllButton.innerHTML = originalText;
+        searchAllButton.removeAttribute("disabled");
+      }, searchEngines.length * 300 + 1000);
+
+      // Clear search input after search
+      searchInput.value = "";
+    });
+  }
 }
 
 // Handle search functionality
@@ -82,7 +146,14 @@ function handleKeyboard(e: KeyboardEvent): void {
       break;
     case "Enter":
       e.preventDefault();
-      if (
+      if (e.ctrlKey || e.metaKey) {
+        // Ctrl+Enter or Cmd+Enter: Search in all engines
+        const query = searchInput.value.trim();
+        if (query) {
+          searchInAllEngines(query);
+          searchInput.value = "";
+        }
+      } else if (
         bookmarkManager.getCurrentBookmarks()[
           bookmarkManager.getSelectedIndex()
         ]
@@ -95,9 +166,11 @@ function handleKeyboard(e: KeyboardEvent): void {
           bookmarkManager.openBookmark(query);
         } else {
           // Search on Google
-          bookmarkManager.openBookmark(
-            `https://www.google.com/search?q=${encodeURIComponent(query)}`
-          );
+          const engine = searchEngines.find((e) => e.name === "Google");
+          if (engine) {
+            searchInEngine(query, engine);
+            searchInput.value = "";
+          }
         }
       }
       break;

@@ -1,31 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Homepage - Bookmarks Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/style.css" />
   </head>
-  <body>
-    <div id="app">
-      <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div class="bg-white p-8 rounded-lg shadow-md text-center">
-          <a href="https://vite.dev" target="_blank" class="inline-block mr-4">
-            <img src="/vite.svg" class="logo w-16 h-16" alt="Vite logo" />
-          </a>
-          <a href="https://www.typescriptlang.org/" target="_blank" class="inline-block">
-            <img src="/typescript.svg" class="logo vanilla w-16 h-16" alt="TypeScript logo" />
-          </a>
-          <h1 class="text-4xl font-bold text-gray-800 mt-4 mb-6">Vite + TypeScript</h1>
-          <div class="card">
-            <button id="counter" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"></button>
+  <body class="min-h-screen text-nord-6 overflow-x-hidden">
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 opacity-5">
+      <div
+        class="absolute inset-0"
+        style="
+          background-image: radial-gradient(
+            circle at 1px 1px,
+            rgba(255, 255, 255, 0.15) 1px,
+            transparent 0
+          );
+          background-size: 20px 20px;
+        "
+      ></div>
+    </div>
+
+    <!-- Main Container -->
+    <div
+      class="relative z-10 container mx-auto px-4 py-8 min-h-screen flex flex-col"
+    >
+      <!-- Header -->
+      <header class="text-center mb-8 fade-in">
+        <h1 class="text-4xl md:text-6xl font-bold text-nord-8 mb-4">
+          Bookmarks
+        </h1>
+        <p class="text-lg text-nord-4 opacity-80">Personal Dashboard</p>
+      </header>
+
+      <!-- Search Bar -->
+      <div class="mb-8 fade-in">
+        <div class="max-w-2xl mx-auto">
+          <div class="relative">
+            <span
+              class="absolute inset-y-0 left-0 flex items-center pl-4 text-nord-4 text-xl"
+            >
+              🔍
+            </span>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search bookmarks or type a URL..."
+              class="search-input w-full pl-12 pr-6 py-4 rounded-xl text-nord-6 placeholder-nord-4 focus:outline-none text-lg"
+              autocomplete="off"
+            />
           </div>
-          <p class="read-the-docs text-gray-600 mt-4">
-            Click on the Vite and TypeScript logos to learn more
+        </div>
+        <div class="text-center mt-4">
+          <p class="text-sm text-nord-4 opacity-60">
+            Press
+            <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Tab</kbd> to
+            navigate •
+            <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Enter</kbd> to
+            open •
+            <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Esc</kbd> to
+            clear
           </p>
         </div>
       </div>
+
+      <!-- Bookmarks Section -->
+      <main class="flex-1 fade-in">
+        <div class="mb-6">
+          <h2 class="text-2xl font-semibold text-nord-8 mb-2">📂 Bookmarks</h2>
+          <p class="text-nord-4 opacity-80">
+            Navigate through your favorite sites
+          </p>
+        </div>
+
+        <!-- Bookmark Categories -->
+        <div class="mb-6">
+          <div class="flex flex-wrap gap-2">
+            <button
+              class="category-btn active px-4 py-2 rounded-lg bg-nord-8 text-nord-0 font-medium transition-all hover:bg-nord-7"
+              data-category="all"
+            >
+              All
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="dev"
+            >
+              Development
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="social"
+            >
+              Social
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="tools"
+            >
+              Tools
+            </button>
+            <button
+              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
+              data-category="entertainment"
+            >
+              Entertainment
+            </button>
+          </div>
+        </div>
+
+        <!-- Bookmarks Grid -->
+        <div id="bookmarksContainer" class="bookmark-grid">
+          <!-- Bookmarks will be dynamically inserted here -->
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden text-center py-12">
+          <div class="text-6xl mb-4">🔍</div>
+          <h3 class="text-xl text-nord-4 mb-2">No bookmarks found</h3>
+          <p class="text-nord-4 opacity-60">
+            Try adjusting your search or category filter
+          </p>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="text-center py-6 border-t border-nord-2 mt-12 fade-in">
+        <p class="text-nord-4 opacity-60">
+          Made with ❄️ and <span class="text-nord-14">Nordic</span> colors •
+          <span class="goose-dance inline-block">🦆</span> Goose approved
+        </p>
+      </footer>
     </div>
-    <script type="module" src="/src/main.ts"></script>
+
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>

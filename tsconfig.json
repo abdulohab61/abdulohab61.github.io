@@ -22,7 +22,6 @@
     "noUncheckedSideEffectImports": true,
 
     /* Type declarations */
-    "typeRoots": ["node_modules/@types"],
-    "types": ["vite/client"]
+    "typeRoots": ["node_modules/@types"]
   },
 }

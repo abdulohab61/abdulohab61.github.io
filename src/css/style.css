@@ -74,6 +74,17 @@ body {
   box-shadow: 0 0 0 3px rgba(143, 188, 187, 0.2);
 }
 
+.search-input:focus::placeholder {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.search-input::placeholder {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+
 .fade-in {
   animation: fadeIn 0.5s ease-in;
 }
@@ -157,7 +168,16 @@ body {
 
 .ring-nord-8 { --tw-ring-color: var(--nord-8); }
 
-.placeholder-nord-4::placeholder { color: var(--nord-4); }
+.placeholder-nord-4::placeholder { 
+  color: var(--nord-4); 
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.search-input:focus::placeholder,
+.search-input:not(:placeholder-shown)::placeholder {
+  opacity: 0;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {

@@ -1,4 +1,4 @@
-# 🦆 Bookmarks Dashboard
+# Bookmarks Dashboard
 
 A beautiful, modern bookmarks dashboard built with TypeScript, Tailwind CSS, and Vite. Features Nord color scheme and smooth animations.
 

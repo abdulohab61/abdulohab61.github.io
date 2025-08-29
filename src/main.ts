@@ -207,7 +207,9 @@ function handleCategoryFilter(category: string): void {
   // Filter bookmarks
   bookmarkManager.filterByCategory(category);
   bookmarkManager.resetSelection();
-} // Handle keyboard navigation
+}
+
+// Handle keyboard navigation
 function handleKeyboard(e: KeyboardEvent): void {
   switch (e.key) {
     case "ArrowDown":

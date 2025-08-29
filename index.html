@@ -1,313 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homepage - Bookmarks Dashboard</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./src/style.css" />
-  </head>
-  <body class="min-h-screen text-nord-6 overflow-x-hidden">
-    <!-- Background Pattern -->
-    <div class="fixed inset-0 opacity-5">
-      <div
-        class="absolute inset-0"
-        style="
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homepage</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/css/style.css" />
+</head>
+
+<body class="min-h-screen text-nord-6 overflow-x-hidden">
+  <!-- Background Pattern -->
+  <div class="fixed inset-0 opacity-5">
+    <div class="absolute inset-0" style="
           background-image: radial-gradient(
             circle at 1px 1px,
             rgba(255, 255, 255, 0.15) 1px,
             transparent 0
           );
           background-size: 20px 20px;
-        "
-      ></div>
-    </div>
+        "></div>
+  </div>
 
-    <!-- Main Container -->
-    <div
-      class="relative z-10 container mx-auto px-4 py-8 min-h-screen flex flex-col"
-    >
-      <!-- Header -->
-      <header class="text-center mb-8 fade-in">
-        <h1 class="text-4xl md:text-6xl font-bold text-nord-8 mb-4">
-          Bookmarks
-        </h1>
-        <p class="text-lg text-nord-4 opacity-80">Personal Dashboard</p>
-      </header>
+  <!-- Main Container -->
+  <div class="relative z-10 container mx-auto px-4 py-8 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="text-center mb-8 fade-in">
+      <h1 class="text-4xl md:text-6xl font-bold text-nord-8 mb-4">OpenBookmarks</h1>
+      <p class="text-lg text-nord-4 opacity-80">Browser Dashboard</p>
+    </header>
 
-      <!-- Search Bar -->
-      <div class="mb-8 fade-in">
-        <div class="max-w-2xl mx-auto">
-          <div class="relative">
-            <span
-              class="absolute inset-y-0 left-0 flex items-center pl-4 text-nord-4 text-xl"
-            >
+    <!-- Search Bar -->
+    <div class="mb-8 fade-in">
+      <div class="max-w-2xl mx-auto">
+        <div class="relative flex gap-2">
+          <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-nord-4 text-xl">
               🔍
             </span>
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Search bookmarks or type a URL..."
+            <input type="text" id="searchInput" placeholder="Search bookmarks or type a URL..."
               class="search-input w-full pl-12 pr-6 py-4 rounded-xl text-nord-6 placeholder-nord-4 focus:outline-none text-lg"
-              autocomplete="off"
-            />
+              autocomplete="off" />
+          </div>
+          <button id="refreshData"
+            class="px-4 py-4 rounded-xl bg-nord-2 hover:bg-nord-3 text-nord-6 hover:text-nord-8 transition-all"
+            title="Refresh bookmarks (Ctrl+R or F5)">
+            🔄
+          </button>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p class="text-sm text-nord-4 opacity-60">
+          Press
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Tab</kbd> to
+          navigate •
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Enter</kbd> to
+          search Google •
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Ctrl+Enter</kbd> to
+          search all •
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Ctrl+R</kbd> to
+          refresh •
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Esc</kbd> to
+          clear
+        </p>
+      </div>
+    </div>
+
+    <!-- Search Engines Section -->
+    <section class="mb-8 fade-in">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold text-nord-8 mb-2">🔍 Quick Search</h2>
+          <p class="text-nord-4 opacity-80 text-sm">
+            Search across multiple engines or pick your favorite
+          </p>
+        </div>
+
+        <!-- Search Engines Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
+          <button id="searchGoogle"
+            class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+            data-engine="Google">
+            <span class="text-2xl mb-1">🔍</span>
+            <span class="text-xs text-nord-6 font-medium">Google</span>
+          </button>
+
+          <button id="searchBing"
+            class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+            data-engine="Bing">
+            <span class="text-2xl mb-1">🌐</span>
+            <span class="text-xs text-nord-6 font-medium">Bing</span>
+          </button>
+
+          <button id="searchYouTube"
+            class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+            data-engine="YouTube">
+            <span class="text-2xl mb-1">📺</span>
+            <span class="text-xs text-nord-6 font-medium">YouTube</span>
+          </button>
+
+          <button id="searchYandex"
+            class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+            data-engine="Yandex">
+            <span class="text-2xl mb-1">🔎</span>
+            <span class="text-xs text-nord-6 font-medium">Yandex</span>
+          </button>
+
+          <button id="searchDuckDuckGo"
+            class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+            data-engine="DuckDuckGo">
+            <span class="text-2xl mb-1">🦆</span>
+            <span class="text-xs text-nord-6 font-medium">DuckDuckGo</span>
+          </button>
+
+          <button id="searchWikipedia"
+            class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
+            data-engine="Wikipedia">
+            <span class="text-2xl mb-1">📖</span>
+            <span class="text-xs text-nord-6 font-medium">Wikipedia</span>
+          </button>
+        </div>
+
+        <!-- Search All Button -->
+        <div class="text-center">
+          <button id="searchAllEngines"
+            class="px-6 py-3 rounded-lg bg-nord-11 text-nord-0 font-medium hover:bg-nord-12 transition-all transform hover:scale-105">
+            🚀 Search All Engines
+          </button>
+          <div class="mt-2">
+            <small class="text-nord-4 opacity-60">
+              Opens multiple tabs - make sure popups are allowed
+            </small>
           </div>
         </div>
-        <div class="text-center mt-4">
-          <p class="text-sm text-nord-4 opacity-60">
-            Press
-            <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Tab</kbd> to
-            navigate •
-            <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Enter</kbd> to
-            search Google •
-            <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Ctrl+Enter</kbd> to
-            search all •
-            <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Esc</kbd> to
-            clear
-          </p>
+      </div>
+    </section>
+
+    <!-- Bookmarks Section -->
+    <main class="flex-1 fade-in">
+      <div class="mb-6">
+        <h2 class="text-2xl font-semibold text-nord-8 mb-2">📂 Bookmarks</h2>
+        <p class="text-nord-4 opacity-80">
+          Navigate through your favorite sites
+        </p>
+      </div>
+
+      <!-- Bookmark Categories -->
+      <div class="mb-6">
+        <div class="flex flex-wrap gap-2">
+          <!-- Categories will be dynamically loaded from YAML -->
         </div>
       </div>
 
-      <!-- Search Engines Section -->
-      <section class="mb-8 fade-in">
-        <div class="max-w-4xl mx-auto">
-          <div class="mb-4">
-            <h2 class="text-xl font-semibold text-nord-8 mb-2">🔍 Quick Search</h2>
-            <p class="text-nord-4 opacity-80 text-sm">
-              Search across multiple engines or pick your favorite
-            </p>
-          </div>
-          
-          <!-- Search Engines Grid -->
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
-            <button
-              id="searchGoogle"
-              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
-              data-engine="Google"
-            >
-              <span class="text-2xl mb-1">🔍</span>
-              <span class="text-xs text-nord-6 font-medium">Google</span>
-            </button>
-            
-            <button
-              id="searchBing"
-              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
-              data-engine="Bing"
-            >
-              <span class="text-2xl mb-1">🌐</span>
-              <span class="text-xs text-nord-6 font-medium">Bing</span>
-            </button>
-            
-            <button
-              id="searchYouTube"
-              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
-              data-engine="YouTube"
-            >
-              <span class="text-2xl mb-1">📺</span>
-              <span class="text-xs text-nord-6 font-medium">YouTube</span>
-            </button>
-            
-            <button
-              id="searchYandex"
-              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
-              data-engine="Yandex"
-            >
-              <span class="text-2xl mb-1">🔎</span>
-              <span class="text-xs text-nord-6 font-medium">Yandex</span>
-            </button>
-            
-            <button
-              id="searchDuckDuckGo"
-              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
-              data-engine="DuckDuckGo"
-            >
-              <span class="text-2xl mb-1">🦆</span>
-              <span class="text-xs text-nord-6 font-medium">DuckDuckGo</span>
-            </button>
-            
-            <button
-              id="searchWikipedia"
-              class="search-engine-btn flex flex-col items-center p-3 rounded-lg bg-nord-1 bg-opacity-60 border border-nord-2 hover:border-nord-7 hover:bg-opacity-80 transition-all"
-              data-engine="Wikipedia"
-            >
-              <span class="text-2xl mb-1">📖</span>
-              <span class="text-xs text-nord-6 font-medium">Wikipedia</span>
-            </button>
-          </div>
-          
-          <!-- Search All Button -->
-          <div class="text-center">
-            <button
-              id="searchAllEngines"
-              class="px-6 py-3 rounded-lg bg-nord-11 text-nord-0 font-medium hover:bg-nord-12 transition-all transform hover:scale-105"
-            >
-              🚀 Search All Engines
-            </button>
-            <div class="mt-2">
-              <small class="text-nord-4 opacity-60">
-                Opens multiple tabs - make sure popups are allowed
-              </small>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- Bookmarks Grid -->
+      <div id="bookmarksContainer" class="bookmark-grid">
+        <!-- Bookmarks will be dynamically inserted here -->
+      </div>
 
-      <!-- Bookmarks Section -->
-      <main class="flex-1 fade-in">
-        <div class="mb-6">
-          <h2 class="text-2xl font-semibold text-nord-8 mb-2">📂 Bookmarks</h2>
-          <p class="text-nord-4 opacity-80">
-            Navigate through your favorite sites
-          </p>
-        </div>
-
-        <!-- Bookmark Categories -->
-        <div class="mb-6">
-          <div class="flex flex-wrap gap-2">
-            <button
-              class="category-btn active px-4 py-2 rounded-lg bg-nord-8 text-nord-0 font-medium transition-all hover:bg-nord-7"
-              data-category="all"
-            >
-              All
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="dev"
-            >
-              Development
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="social"
-            >
-              Social
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="tools"
-            >
-              Tools
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="entertainment"
-            >
-              Entertainment
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="ai"
-            >
-              AI Tools
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="search"
-            >
-              Search
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="productivity"
-            >
-              Productivity
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="study"
-            >
-              Study
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="application"
-            >
-              Applications
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="pdf"
-            >
-              PDF Tools
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="software"
-            >
-              Software
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="algorithms"
-            >
-              Algorithms
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="cp"
-            >
-              Competitive Programming
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="downloader"
-            >
-              Downloaders
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="videos"
-            >
-              Videos
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="blog"
-            >
-              Blogs
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="news"
-            >
-              News
-            </button>
-            <button
-              class="category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6"
-              data-category="torrent"
-            >
-              Archives
-            </button>
-          </div>
-        </div>
-
-        <!-- Bookmarks Grid -->
-        <div id="bookmarksContainer" class="bookmark-grid">
-          <!-- Bookmarks will be dynamically inserted here -->
-        </div>
-
-        <!-- No Results Message -->
-        <div id="noResults" class="hidden text-center py-12">
-          <div class="text-6xl mb-4">🔍</div>
-          <h3 class="text-xl text-nord-4 mb-2">No bookmarks found</h3>
-          <p class="text-nord-4 opacity-60">
-            Try adjusting your search or category filter
-          </p>
-        </div>
-      </main>
-
-      <!-- Footer -->
-      <footer class="text-center py-6 border-t border-nord-2 mt-12 fade-in">
+      <!-- No Results Message -->
+      <div id="noResults" class="hidden text-center py-12">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-xl text-nord-4 mb-2">No bookmarks found</h3>
         <p class="text-nord-4 opacity-60">
-          Made with ❄️ and <span class="text-nord-14">Nordic</span> colors •
-          <span class="goose-dance inline-block">🦆</span> Goose approved
+          Try adjusting your search or category filter
         </p>
-      </footer>
-    </div>
+      </div>
+    </main>
 
-    <script type="module" src="./src/main.ts"></script>
-  </body>
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-nord-2 mt-12 fade-in">
+      <p class="text-nord-4 opacity-60">
+        Made with ❄️ and <span class="text-nord-14">Nordic</span> colors •
+        <span class="goose-dance inline-block">🦆</span> Goose approved
+      </p>
+    </footer>
+  </div>
+
+  <script type="module" src="./src/main.ts"></script>
+</body>
+
 </html>

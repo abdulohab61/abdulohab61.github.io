@@ -1,6 +1,10 @@
-import "./style.css";
-import type { Category } from "./data.js";
+import "./css/style.css";
 import { BookmarkManager } from "./bookmarks.js";
+import {
+  getBookmarksData,
+  refreshBookmarksData,
+  getCategories,
+} from "./data-loader.js";
 import {
   isValidURL,
   searchInEngine,
@@ -14,25 +18,95 @@ let bookmarkManager: BookmarkManager;
 // DOM elements
 let searchInput: HTMLInputElement;
 
+// Render categories dynamically from YAML data
+async function renderCategories(): Promise<void> {
+  try {
+    const categories = await getCategories();
+
+    // Find the category buttons container
+    const categoryContainer = document.querySelector(".flex.flex-wrap.gap-2");
+    if (!categoryContainer) {
+      console.error("Category container not found");
+      return;
+    }
+
+    // Clear existing category buttons
+    categoryContainer.innerHTML = "";
+
+    // Create category buttons
+    categories.forEach((category, index) => {
+      const button = document.createElement("button");
+      button.className = `category-btn ${
+        index === 0 ? "active" : ""
+      } px-4 py-2 rounded-lg ${
+        index === 0 ? "bg-nord-8 text-nord-0" : "bg-nord-2 text-nord-4"
+      } font-medium transition-all hover:bg-nord-3 hover:text-nord-6`;
+
+      button.setAttribute("data-category", category);
+
+      // Generate display name dynamically
+      const getDisplayName = (cat: string): string => {
+        const specialNames: Record<string, string> = {
+          ai: "AI Tools",
+          pdf: "PDF Tools",
+          cp: "Competitive Programming",
+          torrent: "Archives",
+        };
+
+        return specialNames[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
+      };
+
+      button.textContent = getDisplayName(category);
+
+      // Add click event listener
+      button.addEventListener("click", () => {
+        const categoryType = button.getAttribute("data-category") as string;
+        handleCategoryFilter(categoryType);
+      });
+
+      categoryContainer.appendChild(button);
+    });
+
+    console.log(`Rendered ${categories.length} categories dynamically`);
+  } catch (error) {
+    console.error("Error rendering categories:", error);
+  }
+}
+
 // Initialize the application
-function init(): void {
-  // Initialize bookmark manager
-  bookmarkManager = new BookmarkManager();
+async function init(): Promise<void> {
+  try {
+    console.log("Initializing application...");
 
-  // Make it globally accessible for onclick handlers
-  (window as any).bookmarkManager = bookmarkManager;
+    // Load data first
+    await getBookmarksData();
 
-  // Get DOM elements
-  searchInput = document.getElementById("searchInput") as HTMLInputElement;
+    // Render categories dynamically
+    await renderCategories();
 
-  // Render initial bookmarks
-  bookmarkManager.renderBookmarks(bookmarkManager.getCurrentBookmarks());
+    // Initialize bookmark manager
+    bookmarkManager = new BookmarkManager();
 
-  // Setup event listeners
-  setupEventListeners();
+    // Make it globally accessible for onclick handlers
+    (window as any).bookmarkManager = bookmarkManager;
 
-  // Focus search input on load
-  searchInput.focus();
+    // Get DOM elements
+    searchInput = document.getElementById("searchInput") as HTMLInputElement;
+
+    // Ensure data is loaded in BookmarkManager
+    setTimeout(() => {
+      bookmarkManager.refreshData();
+      bookmarkManager.renderBookmarks(bookmarkManager.getCurrentBookmarks());
+    }, 100);
+
+    // Setup event listeners
+    setupEventListeners();
+
+    // Focus search input on load
+    searchInput.focus();
+  } catch (error) {
+    console.error("Failed to initialize application:", error);
+  }
 }
 
 // Setup all event listeners
@@ -41,17 +115,16 @@ function setupEventListeners(): void {
   searchInput.addEventListener("input", handleSearch);
   searchInput.addEventListener("keydown", handleKeyboard);
 
-  // Category button events
-  const categoryButtons = document.querySelectorAll(".category-btn");
-  categoryButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const category = btn.getAttribute("data-category") as Category;
-      handleCategoryFilter(category);
-    });
-  });
+  // Note: Category button events are now handled in renderCategories()
 
   // Global keyboard shortcuts
   document.addEventListener("keydown", handleGlobalKeyboard);
+
+  // Refresh button
+  const refreshButton = document.getElementById("refreshData");
+  if (refreshButton) {
+    refreshButton.addEventListener("click", refreshData);
+  }
 
   // Search engines event listeners
   setupSearchEngineListeners();
@@ -124,16 +197,17 @@ function handleSearch(e: Event): void {
 }
 
 // Handle category filtering
-function handleCategoryFilter(category: Category): void {
+function handleCategoryFilter(category: string): void {
+  console.log("🏷️ Category filter clicked:", category);
+  console.log("🔄 BookmarkManager exists:", !!bookmarkManager);
+
   // Clear search
   searchInput.value = "";
 
   // Filter bookmarks
   bookmarkManager.filterByCategory(category);
   bookmarkManager.resetSelection();
-}
-
-// Handle keyboard navigation
+} // Handle keyboard navigation
 function handleKeyboard(e: KeyboardEvent): void {
   switch (e.key) {
     case "ArrowDown":
@@ -187,9 +261,61 @@ function handleKeyboard(e: KeyboardEvent): void {
   }
 }
 
+// Refresh bookmarks data
+async function refreshData(): Promise<void> {
+  try {
+    console.log("Refreshing bookmarks data...");
+    await refreshBookmarksData();
+
+    // Re-render categories in case new ones were added
+    await renderCategories();
+
+    // Refresh existing bookmark manager instead of creating new one
+    bookmarkManager.refreshData();
+
+    // Reset category filter to "all"
+    bookmarkManager.filterByCategory("all");
+
+    // Re-render bookmarks
+    bookmarkManager.renderBookmarks(bookmarkManager.getCurrentBookmarks());
+
+    console.log("Bookmarks data refreshed successfully!");
+
+    // Show a temporary notification
+    showNotification("📚 Bookmarks refreshed!", 2000);
+  } catch (error) {
+    console.error("Failed to refresh bookmarks:", error);
+    showNotification("❌ Failed to refresh bookmarks", 3000);
+  }
+}
+
+// Show notification
+function showNotification(message: string, duration: number): void {
+  const notification = document.createElement("div");
+  notification.className =
+    "fixed top-4 right-4 bg-nord-8 text-nord-0 px-4 py-2 rounded-lg shadow-lg z-50 transition-all";
+  notification.textContent = message;
+
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.style.opacity = "0";
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 300);
+  }, duration);
+}
+
 // Handle global keyboard shortcuts
 function handleGlobalKeyboard(e: KeyboardEvent): void {
   if (e.target === searchInput) return;
+
+  // Refresh data with Ctrl+R or F5
+  if ((e.ctrlKey && e.key === "r") || e.key === "F5") {
+    e.preventDefault();
+    refreshData();
+    return;
+  }
 
   // Focus search input on any key press
   if (e.key.length === 1 || e.key === "Backspace") {
@@ -231,4 +357,8 @@ function addGoosePersonality(): void {
 }
 
 // Initialize when DOM is loaded
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", () => {
+  init().catch((error) => {
+    console.error("Application initialization failed:", error);
+  });
+});

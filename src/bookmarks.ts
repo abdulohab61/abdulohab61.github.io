@@ -1,25 +1,51 @@
-import type { Bookmark, Category } from "./data.js";
+import type { Bookmark } from "./data.js";
 import { sampleBookmarks } from "./data.js";
 import { getCategoryColor } from "./utils.js";
 
 export class BookmarkManager {
-  private bookmarks: Bookmark[] = sampleBookmarks;
-  private currentBookmarks: Bookmark[] = sampleBookmarks;
+  private bookmarks: Bookmark[] = [];
+  private currentBookmarks: Bookmark[] = [];
   private selectedIndex: number = 0;
 
   // DOM elements
   private bookmarksContainer: HTMLElement;
   private noResults: HTMLElement;
-  private categoryButtons: NodeListOf<HTMLButtonElement>;
 
   constructor() {
     this.bookmarksContainer = document.getElementById("bookmarksContainer")!;
     this.noResults = document.getElementById("noResults")!;
-    this.categoryButtons = document.querySelectorAll(".category-btn");
+
+    // Load initial data
+    this.refreshData();
+
+    // Listen for bookmark updates
+    window.addEventListener("bookmarksUpdated", () => {
+      this.refreshData();
+      this.renderBookmarks(this.getCurrentBookmarks());
+    });
+  }
+
+  // Refresh data from the global sampleBookmarks
+  refreshData(): void {
+    this.bookmarks = [...sampleBookmarks];
+    this.currentBookmarks = [...sampleBookmarks];
+    console.log(
+      "BookmarkManager data refreshed:",
+      this.bookmarks.length,
+      "bookmarks"
+    );
   }
 
   // Render bookmarks to DOM
   renderBookmarks(bookmarks: Bookmark[]): void {
+    console.log("🖼️ Rendering bookmarks:", bookmarks.length, "items");
+    console.log(
+      "📋 First few bookmarks:",
+      bookmarks
+        .slice(0, 3)
+        .map((b) => ({ title: b.title, category: b.category }))
+    );
+
     if (bookmarks.length === 0) {
       this.bookmarksContainer.classList.add("hidden");
       this.noResults.classList.remove("hidden");
@@ -69,7 +95,7 @@ export class BookmarkManager {
     if (query === "") {
       const activeCategory = document
         .querySelector(".category-btn.active")
-        ?.getAttribute("data-category") as Category;
+        ?.getAttribute("data-category") as string;
       this.filterByCategory(activeCategory || "all");
     } else {
       const filtered = this.bookmarks.filter(
@@ -85,9 +111,16 @@ export class BookmarkManager {
   }
 
   // Filter bookmarks by category
-  filterByCategory(category: Category): void {
+  filterByCategory(category: string): void {
+    console.log("📋 Filtering bookmarks by category:", category);
+    console.log("📊 Total bookmarks:", this.bookmarks.length);
+
+    // Get fresh category buttons (in case they were dynamically created)
+    const categoryButtons = document.querySelectorAll(".category-btn");
+    console.log("🔘 Found category buttons:", categoryButtons.length);
+
     // Update active button
-    this.categoryButtons.forEach((btn) => {
+    categoryButtons.forEach((btn) => {
       btn.classList.remove("active", "bg-nord-8", "text-nord-0");
       btn.classList.add("bg-nord-2", "text-nord-4");
     });
@@ -107,7 +140,16 @@ export class BookmarkManager {
       this.currentBookmarks = this.bookmarks.filter(
         (bookmark) => bookmark.category === category
       );
+      console.log(
+        `🔍 Filtered for category "${category}":`,
+        this.currentBookmarks.map((b) => ({
+          title: b.title,
+          category: b.category,
+        }))
+      );
     }
+
+    console.log("✅ Filtered bookmarks count:", this.currentBookmarks.length);
     this.renderBookmarks(this.currentBookmarks);
   }
 

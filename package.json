@@ -1,5 +1,7 @@
 {
-  "name": "homepage",
+  "name": "open-bookmarks",
+  "description": "A simple homepage project for managing and viewing bookmarks.",
+  "main": "index.js",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -17,21 +19,15 @@
     "typescript": "~5.8.3",
     "vite": "^7.1.0"
   },
-  "description": "",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AbdulOhab/Homepage.git"
+  "dependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "js-yaml": "^4.1.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AbdulOhab/Homepage/issues"
-  },
-  "homepage": "https://github.com/AbdulOhab/Homepage#readme",
-  "dependencies": {
-    "@types/js-yaml": "^4.0.9",
-    "js-yaml": "^4.1.0"
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdulOhab/open-bookmarks-homepage.git"
   }
 }

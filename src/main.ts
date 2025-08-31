@@ -1,16 +1,10 @@
 import "./css/style.css";
-import {
-  searchEngines,
-  searchInAllEngines,
-  setupSearchEngineListeners,
-} from "./search.js";
+import { setupSearchEngineListeners } from "./search.js";
 import { BookmarkManager } from "./bookmarks.js";
-import {
-  getBookmarksData,
-  refreshBookmarksData,
-  getCategories,
-} from "./data-loader.js";
-import { isValidURL, searchInEngine } from "./utils.js";
+import { getBookmarksData } from "./data-loader.js";
+import { getCategories } from "./data-loader.js";
+import { handleKeyboard, handleGlobalKeyboard } from "./handleKeyboard.js";
+import { refreshData, initKeyboardHandlers } from "./handleKeyboard.js";
 
 // Global variables
 let bookmarkManager: BookmarkManager;
@@ -111,6 +105,14 @@ async function init(): Promise<void> {
 
 // Setup all event listeners
 function setupEventListeners(): void {
+  // Initialize keyboard handlers with dependencies
+  initKeyboardHandlers(
+    bookmarkManager,
+    searchInput,
+    handleSearch,
+    renderCategories
+  );
+
   // Search input events
   searchInput.addEventListener("input", handleSearch);
   searchInput.addEventListener("keydown", handleKeyboard);
@@ -128,9 +130,6 @@ function setupEventListeners(): void {
 
   // Search engines event listeners
   setupSearchEngineListeners();
-
-  // Goose personality
-  addGoosePersonality();
 }
 
 // Handle search functionality
@@ -138,6 +137,9 @@ function handleSearch(e: Event): void {
   const target = e.target as HTMLInputElement;
   const query = target.value.toLowerCase().trim();
   bookmarkManager.searchBookmarks(query);
+
+  // Reset bookmark selection when searching
+  bookmarkManager.resetSelection();
 }
 
 // Handle category filtering
@@ -151,155 +153,6 @@ function handleCategoryFilter(category: string): void {
   // Filter bookmarks
   bookmarkManager.filterByCategory(category);
   bookmarkManager.resetSelection();
-}
-
-// Handle keyboard navigation
-function handleKeyboard(e: KeyboardEvent): void {
-  switch (e.key) {
-    case "ArrowDown":
-      e.preventDefault();
-      bookmarkManager.navigateDown();
-      break;
-    case "ArrowUp":
-      e.preventDefault();
-      bookmarkManager.navigateUp();
-      break;
-    case "Enter":
-      e.preventDefault();
-      if (e.ctrlKey || e.metaKey) {
-        // Ctrl+Enter or Cmd+Enter: Search in all engines
-        const query = searchInput.value.trim();
-        if (query) {
-          searchInAllEngines(query);
-          // searchInput.value = ""; // Commented: Don't clear search after search all
-        }
-      } else if (
-        bookmarkManager.getCurrentBookmarks()[
-          bookmarkManager.getSelectedIndex()
-        ]
-      ) {
-        bookmarkManager.openSelected();
-      } else if (searchInput.value.trim()) {
-        // If typing a URL
-        const query = searchInput.value.trim();
-        if (isValidURL(query)) {
-          bookmarkManager.openBookmark(query);
-        } else {
-          // Search on Google
-          const engine = searchEngines.find((e) => e.name === "Google");
-          if (engine) {
-            searchInEngine(query, engine);
-            // searchInput.value = ""; // Commented: Don't clear search after Google search
-          }
-        }
-      }
-      break;
-    case "Escape":
-      e.preventDefault();
-      searchInput.value = "";
-      handleSearch(e);
-      searchInput.focus();
-      break;
-    case "Tab":
-      e.preventDefault();
-      bookmarkManager.navigateNext();
-      break;
-  }
-}
-
-// Refresh bookmarks data
-async function refreshData(): Promise<void> {
-  try {
-    console.log("Refreshing bookmarks data...");
-    await refreshBookmarksData();
-
-    // Re-render categories in case new ones were added
-    await renderCategories();
-
-    // Refresh existing bookmark manager instead of creating new one
-    bookmarkManager.refreshData();
-
-    // Reset category filter to "all"
-    bookmarkManager.filterByCategory("all");
-
-    // Re-render bookmarks
-    bookmarkManager.renderBookmarks(bookmarkManager.getCurrentBookmarks());
-
-    console.log("Bookmarks data refreshed successfully!");
-
-    // Show a temporary notification
-    showNotification("📚 Bookmarks refreshed!", 2000);
-  } catch (error) {
-    console.error("Failed to refresh bookmarks:", error);
-    showNotification("❌ Failed to refresh bookmarks", 3000);
-  }
-}
-
-// Show notification
-function showNotification(message: string, duration: number): void {
-  const notification = document.createElement("div");
-  notification.className =
-    "fixed top-4 right-4 bg-nord-8 text-nord-0 px-4 py-2 rounded-lg shadow-lg z-50 transition-all";
-  notification.textContent = message;
-
-  document.body.appendChild(notification);
-
-  setTimeout(() => {
-    notification.style.opacity = "0";
-    setTimeout(() => {
-      document.body.removeChild(notification);
-    }, 300);
-  }, duration);
-}
-
-// Handle global keyboard shortcuts
-function handleGlobalKeyboard(e: KeyboardEvent): void {
-  if (e.target === searchInput) return;
-
-  // Refresh data with Ctrl+R or F5
-  if ((e.ctrlKey && e.key === "r") || e.key === "F5") {
-    e.preventDefault();
-    refreshData();
-    return;
-  }
-
-  // Focus search input on any key press
-  if (e.key.length === 1 || e.key === "Backspace") {
-    searchInput.focus();
-  }
-}
-
-// Add goose personality and easter eggs
-function addGoosePersonality(): void {
-  const goose = document.querySelector(".goose-dance") as HTMLElement;
-  let clickCount = 0;
-
-  if (!goose) return;
-
-  goose.addEventListener("click", () => {
-    clickCount++;
-
-    if (clickCount === 1) {
-      goose.textContent = "🦆";
-    } else if (clickCount === 3) {
-      goose.textContent = "🪿";
-    } else if (clickCount === 5) {
-      goose.textContent = "🦢";
-      setTimeout(() => {
-        goose.textContent = "🦆";
-        clickCount = 0;
-      }, 2000);
-    }
-
-    // Easter egg: Konami code equivalent for goose
-    if (clickCount === 10) {
-      document.body.style.cursor =
-        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='24' viewport='0 0 100 100' style='fill:black;font-size:16px;'><text y='20'>🦆</text></svg>\") 16 0, auto";
-      setTimeout(() => {
-        document.body.style.cursor = "auto";
-      }, 5000);
-    }
-  });
 }
 
 // Initialize when DOM is loaded

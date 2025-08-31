@@ -242,3 +242,14 @@ export function setupSearchEngineListeners(): void {
     });
   }
 }
+
+// Search in specific engine
+export function searchInEngine(query: string, engine: SearchEngine): void {
+  if (query.trim() === "") {
+    alert("Please enter a search query.");
+    return;
+  }
+
+  const url = `${engine.url}?${engine.parameter}=${encodeURIComponent(query)}`;
+  window.open(url, "_blank");
+}

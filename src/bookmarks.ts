@@ -5,7 +5,7 @@ import { getCategoryColor } from "./utils.js";
 export class BookmarkManager {
   private bookmarks: Bookmark[] = [];
   private currentBookmarks: Bookmark[] = [];
-  private selectedIndex: number = 0;
+  private selectedIndex: number = -1; // -1 means no bookmark selected
 
   // DOM elements
   private bookmarksContainer: HTMLElement;
@@ -156,7 +156,7 @@ export class BookmarkManager {
   // Update visual selection for keyboard navigation
   updateSelection(): void {
     document.querySelectorAll(".bookmark-item").forEach((item, index) => {
-      if (index === this.selectedIndex) {
+      if (index === this.selectedIndex && this.selectedIndex >= 0) {
         item.classList.add("ring-2", "ring-nord-8", "bg-opacity-80");
       } else {
         item.classList.remove("ring-2", "ring-nord-8", "bg-opacity-80");
@@ -166,28 +166,42 @@ export class BookmarkManager {
 
   // Keyboard navigation
   navigateUp(): void {
-    this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+    if (this.selectedIndex <= 0) {
+      this.selectedIndex = -1; // Go to no selection
+    } else {
+      this.selectedIndex = this.selectedIndex - 1;
+    }
     this.updateSelection();
   }
 
   navigateDown(): void {
     const bookmarkItems = document.querySelectorAll(".bookmark-item");
-    this.selectedIndex = Math.min(
-      this.selectedIndex + 1,
-      bookmarkItems.length - 1
-    );
+    if (this.selectedIndex < 0) {
+      this.selectedIndex = 0; // Start from first bookmark
+    } else {
+      this.selectedIndex = Math.min(
+        this.selectedIndex + 1,
+        bookmarkItems.length - 1
+      );
+    }
     this.updateSelection();
   }
 
   navigateNext(): void {
     const bookmarkItems = document.querySelectorAll(".bookmark-item");
-    this.selectedIndex = (this.selectedIndex + 1) % bookmarkItems.length;
+    if (bookmarkItems.length === 0) return;
+
+    if (this.selectedIndex < 0) {
+      this.selectedIndex = 0; // Start from first bookmark
+    } else {
+      this.selectedIndex = (this.selectedIndex + 1) % bookmarkItems.length;
+    }
     this.updateSelection();
   }
 
   // Open selected bookmark
   openSelected(): void {
-    if (this.currentBookmarks[this.selectedIndex]) {
+    if (this.selectedIndex >= 0 && this.currentBookmarks[this.selectedIndex]) {
       const url = this.currentBookmarks[this.selectedIndex].url;
       this.openBookmark(url);
     }
@@ -218,7 +232,7 @@ export class BookmarkManager {
 
   // Reset selected index
   resetSelection(): void {
-    this.selectedIndex = 0;
+    this.selectedIndex = -1; // No bookmark selected
     this.updateSelection();
   }
 }

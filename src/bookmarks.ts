@@ -1,5 +1,5 @@
-import type { Bookmark } from "./data.js";
-import { sampleBookmarks } from "./data.js";
+import type { Bookmark } from "./data-loader.js";
+import { sampleBookmarks } from "./data-loader.js";
 import { getCategoryColor } from "./utils.js";
 
 export class BookmarkManager {

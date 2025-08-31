@@ -1,16 +1,16 @@
 import "./css/style.css";
+import {
+  searchEngines,
+  searchInAllEngines,
+  setupSearchEngineListeners,
+} from "./search.js";
 import { BookmarkManager } from "./bookmarks.js";
 import {
   getBookmarksData,
   refreshBookmarksData,
   getCategories,
 } from "./data-loader.js";
-import {
-  isValidURL,
-  searchInEngine,
-  searchInAllEngines,
-  searchEngines,
-} from "./utils.js";
+import { isValidURL, searchInEngine } from "./utils.js";
 
 // Global variables
 let bookmarkManager: BookmarkManager;
@@ -133,62 +133,6 @@ function setupEventListeners(): void {
   addGoosePersonality();
 }
 
-// Setup search engines event listeners
-function setupSearchEngineListeners(): void {
-  // Individual search engine buttons
-  const searchEngineButtons = document.querySelectorAll(".search-engine-btn");
-  searchEngineButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const engineName = btn.getAttribute("data-engine");
-      const query = searchInput.value.trim();
-
-      if (query === "") {
-        alert("Please enter a search query.");
-        return;
-      }
-
-      if (engineName) {
-        const engine = searchEngines.find((e) => e.name === engineName);
-        if (engine) {
-          searchInEngine(query, engine);
-          // Clear search input after search
-          searchInput.value = "";
-        }
-      }
-    });
-  });
-
-  // Search all engines button
-  const searchAllButton = document.getElementById("searchAllEngines");
-  if (searchAllButton) {
-    searchAllButton.addEventListener("click", () => {
-      const query = searchInput.value.trim();
-
-      if (query === "") {
-        alert("Please enter a search query.");
-        return;
-      }
-
-      // Update button text temporarily
-      const originalText = searchAllButton.innerHTML;
-      searchAllButton.innerHTML = "🚀 Searching...";
-      searchAllButton.setAttribute("disabled", "true");
-
-      // Call search function
-      searchInAllEngines(query);
-
-      // Reset button after delay
-      setTimeout(() => {
-        searchAllButton.innerHTML = originalText;
-        searchAllButton.removeAttribute("disabled");
-      }, searchEngines.length * 300 + 1000);
-
-      // Clear search input after search
-      searchInput.value = "";
-    });
-  }
-}
-
 // Handle search functionality
 function handleSearch(e: Event): void {
   const target = e.target as HTMLInputElement;
@@ -227,7 +171,7 @@ function handleKeyboard(e: KeyboardEvent): void {
         const query = searchInput.value.trim();
         if (query) {
           searchInAllEngines(query);
-          searchInput.value = "";
+          // searchInput.value = ""; // Commented: Don't clear search after search all
         }
       } else if (
         bookmarkManager.getCurrentBookmarks()[
@@ -245,7 +189,7 @@ function handleKeyboard(e: KeyboardEvent): void {
           const engine = searchEngines.find((e) => e.name === "Google");
           if (engine) {
             searchInEngine(query, engine);
-            searchInput.value = "";
+            // searchInput.value = ""; // Commented: Don't clear search after Google search
           }
         }
       }

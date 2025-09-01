@@ -43,32 +43,38 @@ export class BookmarkManager {
     this.noResults.classList.add("hidden");
 
     this.bookmarksContainer.innerHTML = bookmarks
+
       .map(
         (bookmark, index) => `
-          <div class="bookmark-item bg-nord-1 bg-opacity-60 rounded-xl p-6 cursor-pointer border border-nord-2 hover:border-nord-7 transition-all" 
+          <div class="bookmark-item group bg-nord-1 bg-opacity-80 rounded-lg p-3 cursor-pointer border border-nord-2 hover:border-nord-8 shadow-sm transition-all flex items-center gap-3" 
                data-index="${index}" 
                onclick="window.bookmarkManager.openBookmark('${bookmark.url}')">
-              <div class="flex items-start space-x-4">
-                  <div class="text-3xl flex-shrink-0">${bookmark.icon}</div>
-                  <div class="flex-1 min-w-0">
-                      <h3 class="font-semibold text-lg text-nord-6 mb-1 truncate">${
-                        bookmark.title
-                      }</h3>
-                      <p class="text-nord-4 text-sm mb-2 line-clamp-2">${
-                        bookmark.description
-                      }</p>
-                      <div class="flex items-center space-x-2">
-                          <span class="text-xs px-2 py-1 bg-nord-${getCategoryColor(
-                            bookmark.category
-                          )} text-nord-0 rounded-full font-medium">
-                              ${bookmark.category}
-                          </span>
-                          <span class="text-xs text-nord-4 opacity-60 truncate">${
-                            bookmark.url
-                          }</span>
-                      </div>
-                  </div>
+            <div class="flex items-center gap-3 w-full">
+              <div class="text-2xl flex-shrink-0 bg-nord-2 rounded-lg p-2">${
+                bookmark.icon
+              }</div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-semibold text-base text-nord-6 mb-0 truncate">${
+                  bookmark.title
+                }</h3>
+                <p class="text-nord-4 text-xs mb-1 line-clamp-1">${
+                  bookmark.description
+                }</p>
+                <span class="text-xs text-nord-4 opacity-70 truncate">${
+                  bookmark.url
+                }</span>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-xs px-2 py-0.5 bg-nord-${getCategoryColor(
+                    bookmark.category
+                  )} text-nord-0 rounded font-medium">${
+          bookmark.category
+        }</span>
+                </div>
               </div>
+              <button class="opacity-0 group-hover:opacity-100 transition-opacity ml-2 text-nord-8" title="Open">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" /></svg>
+              </button>
+            </div>
           </div>
         `
       )

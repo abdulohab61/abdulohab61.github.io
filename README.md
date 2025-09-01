@@ -277,6 +277,4 @@ If you have any questions or need help, please [open an issue](https://github.co
 
 **Made with ❤️ by [AbdulOhab](https://github.com/AbdulOhab)**
 
-**Star ⭐ this repo if you find it helpful!**
-
 </div>

@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [tailwindcss()],
-  base: process.env.NODE_ENV === "production" ? "/Homepage/" : "/",
+  base: "https://abdulohab61.github.io",
   build: {
     outDir: "dist",
     assetsDir: "assets",

@@ -194,3 +194,33 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Enhanced language support for search input */
+.search-input {
+  font-family: 'Fira Code', 'SolaimanLipi', 'Kalpurush', 'Bangla', monospace, sans-serif;
+  unicode-bidi: isolate;
+  text-rendering: optimizeLegibility;
+  -webkit-font-feature-settings: "liga", "kern";
+  font-feature-settings: "liga", "kern";
+}
+
+/* Support for RTL and multilingual input */
+.search-input[dir="auto"] {
+  direction: ltr;
+  text-align: left;
+}
+
+.search-input:focus {
+  font-synthesis: weight style;
+}
+
+/* Enhanced placeholder styling for Bengali support */
+.search-input::placeholder {
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+/* Better font stack for international characters */
+body {
+  font-family: 'Fira Code', 'SolaimanLipi', 'Kalpurush', system-ui, -apple-system, sans-serif;
+}

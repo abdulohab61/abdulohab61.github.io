@@ -21,9 +21,6 @@ categories:
   - "torrent"
   - "news"
   - "music"
-  - "love"
-  - "bbb"
-  - "ban"
 
 categoryColors:
   dev: "10"
@@ -44,10 +41,7 @@ categoryColors:
   blog: "11"
   torrent: "13"
   news: "12"
-  music: "16"
-  love: "17"
-  bbb: "10"
-  ban: "10"
+  music: "15"
 
 bookmarks:
   # Development
@@ -59,7 +53,7 @@ bookmarks:
 
   - title: "Stack Overflow"
     url: "https://stackoverflow.com"
-    category: "bbb"
+    category: "dev"
     icon: "📚"
     description: "Programming Q&A community"
 
@@ -835,16 +829,3 @@ bookmarks:
     category: "torrent"
     icon: "🐧"
     description: "Ubuntu Linux downloads"
-
-  # Love
-  - title: "Love"
-    url: "https://love.com"
-    category: "love"
-    icon: "❤️"
-    description: "Love and relationships"
-
-  - title: "bangladesh"
-    url: "https://love.com"
-    category: "bbb"
-    icon: "❤️"
-    description: "Love and relationships"

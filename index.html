@@ -18,10 +18,11 @@
 
 <body class="min-h-screen text-nord-6 overflow-x-hidden">
   <!-- Main Container -->
-  <div class="relative z-10 container mx-auto px-4 py-8 min-h-screen flex flex-col">
+  <div class="relative z-10 container mx-auto px-4 pt-8 min-h-screen flex flex-col">
     <!-- Header -->
     <header class="text-center mb-8 fade-in">
-      <h1 class="text-4xl md:text-6xl font-bold text-nord-8">OpenBookmarks</h1>
+      <h1 class="text-4xl md:text-6xl font-bold text-nord-8 cursor-pointer hover:text-nord-9 transition-colors"
+        onclick="window.location.reload()">OpenBookmarks</h1>
       <p class="text-lg text-nord-4 opacity-80">Browser Dashboard</p>
     </header>
 
@@ -150,9 +151,12 @@
 
     <!-- Footer -->
     <footer class="text-center py-6 border-t border-nord-2 mt-12 fade-in">
-      <p class="text-nord-4 opacity-60">
-        Made with ❄️ and <span class="text-nord-14">Nordic</span> colors •
-        <span class="goose-dance inline-block">🦆</span> Goose approved
+      <p class="text-nord-4 opacity-70 text-base">
+        © 2025 OpenBookmarks.
+        <a href="https://github.com/AbdulOhab/open-bookmarks-homepage" target="_blank" rel="noopener"
+          class="text-nord-8 underline hover:text-nord-14 font-medium">
+          View Source on GitHub
+        </a>
       </p>
     </footer>
   </div>

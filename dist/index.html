@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Modern browser homepage with bookmarks and search functionality" />
+  <link rel="icon" type="image/png" href="./assets/icon-gPqey0Tt.png" />
+  <title>Homepage</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS file connection -->
+  <script type="module" crossorigin src="./assets/index-CfQ52hNv.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DTX4Wjzg.css">
+</head>
+
+<body class="min-h-screen text-nord-6 overflow-x-hidden">
+  <!-- Main Container -->
+  <div class="relative z-10 container mx-auto px-4 pt-8 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="text-center mb-8 fade-in">
+      <h1 class="text-4xl md:text-6xl font-bold text-nord-8 cursor-pointer hover:text-nord-9 transition-colors"
+        onclick="window.location.reload()">OpenBookmarks</h1>
+      <p class="text-lg text-nord-4 opacity-80">Browser Dashboard</p>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="mb-4 fade-in">
+      <div class="max-w-2xl mx-auto">
+        <div class="relative flex gap-2">
+          <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-nord-4 text-xl">
+              🔍
+            </span>
+            <input type="text" id="searchInput" placeholder="Type a Url, Search, Bookmarks ... (বাংলা সমর্থিত)"
+              autocomplete="off" spellcheck="false" dir="auto" inputmode="text"
+              class="search-input w-full pl-12 pr-6 py-4 rounded-xl text-nord-6 placeholder-nord-4 focus:outline-none text-lg"
+              autocomplete="off" spellcheck="false" dir="auto" lang="en" />
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p class="text-sm text-nord-4 opacity-60">
+          Press
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Tab</kbd> to
+          navigate •
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Enter</kbd> to
+          search Google •
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Ctrl+Enter</kbd> to
+          search all •
+          <kbd class="px-2 py-1 bg-nord-2 rounded text-nord-8">Esc</kbd> to
+          clear
+        </p>
+      </div>
+    </div>
+
+    <!-- Search Engines Section -->
+    <section class="mb-2 fade-in">
+      <div class="max-w-7xl mx-auto">
+        <!-- Search Engines List -->
+        <!-- First of all register link on utils.ts -->
+        <div class="flex flex-wrap justify-center gap-4 mb-6">
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            data-engine="DuckDuckGo" id="searchDuckDuckGo">
+            <span class="text-2xl">D</span>
+            <span class="text-base text-nord-6 font-semibold">DuckDuckGo</span>
+          </button>
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            data-engine="Brave" id="searchBrave">
+            <span class="text-2xl">Br</span>
+            <span class="text-base text-nord-6 font-semibold">Brave</span>
+          </button>
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            data-engine="Google" id="searchGoogle">
+            <span class="text-2xl">G</span>
+            <span class="text-base text-nord-6 font-semibold">Google</span>
+          </button>
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            data-engine="QuackQuackGo" id="searchQuackQuackGo">
+            <span class="text-2xl">Q</span>
+            <span class="text-base text-nord-6 font-semibold">QuackGo</span>
+          </button>
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            data-engine="Startpage" id="searchStartpage">
+            <span class="text-2xl">S</span>
+            <span class="text-base text-nord-6 font-semibold">Startpage</span>
+          </button>
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            data-engine="YouTube" id="searchYouTube">
+            <span class="text-2xl">Y</span>
+            <span class="text-base text-nord-6 font-semibold">YouTube</span>
+          </button>
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            data-engine="Yandex" id="searchYandex">
+            <span class="text-2xl">Y</span>
+            <span class="text-base text-nord-6 font-semibold">Yandex</span>
+          </button>
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            data-engine="Wikipedia" id="searchWikipedia">
+            <span class="text-2xl">📖</span>
+            <span class="text-base text-nord-6 font-semibold">Wikipedia</span>
+          </button>
+          <button
+            class="search-engine-btn flex items-center gap-3 px-5 py-3 rounded-xl bg-nord-1 border border-nord-2 hover:bg-nord-2 hover:border-nord-7 transition-all"
+            id="searchAllEngines">
+            <span class="text-2xl">🔍</span>
+            <span class="text-base text-nord-6 font-semibold">All Engines</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bookmarks Section -->
+    <main class="flex-1 fade-in">
+      <div class="mb-2.5">
+        <h2 class="text-2xl font-semibold text-nord-8 mb-2">📂 Bookmarks</h2>
+        <p class="text-nord-4 opacity-80">
+          Navigate through your favorite sites
+        </p>
+      </div>
+
+      <!-- Bookmark Categories -->
+      <div class="mb-6">
+        <div class="flex flex-wrap gap-2">
+          <!-- Categories will be dynamically loaded from YAML -->
+        </div>
+      </div>
+
+      <!-- Bookmarks Grid -->
+      <div id="bookmarksContainer" class="bookmark-grid">
+        <!-- Bookmarks will be dynamically inserted here -->
+      </div>
+
+      <!-- No Results Message -->
+      <div id="noResults" class="hidden text-center py-12">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-xl text-nord-4 mb-2">No bookmarks found</h3>
+        <p class="text-nord-4 opacity-60">
+          Try adjusting your search or category filter
+        </p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-nord-2 mt-12 fade-in">
+      <p class="text-nord-4 opacity-70 text-base">
+        © 2025 OpenBookmarks.
+        <a href="https://github.com/AbdulOhab/open-bookmarks-homepage" target="_blank" rel="noopener"
+          class="text-nord-8 underline hover:text-nord-14 font-medium">
+          View Source on GitHub
+        </a>
+      </p>
+    </footer>
+  </div>
+
+</body>
+
+</html>

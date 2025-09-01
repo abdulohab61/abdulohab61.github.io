@@ -60,8 +60,6 @@ async function renderCategories(): Promise<void> {
 
       categoryContainer.appendChild(button);
     });
-
-    console.log(`Rendered ${categories.length} categories dynamically`);
   } catch (error) {
     console.error("Error rendering categories:", error);
   }
@@ -70,8 +68,6 @@ async function renderCategories(): Promise<void> {
 // Initialize the application
 async function init(): Promise<void> {
   try {
-    console.log("Initializing application...");
-
     // Load data first
     await getBookmarksData();
 
@@ -117,8 +113,6 @@ function setupEventListeners(): void {
   searchInput.addEventListener("input", handleSearch);
   searchInput.addEventListener("keydown", handleKeyboard);
 
-  // Note: Category button events are now handled in renderCategories()
-
   // Global keyboard shortcuts
   document.addEventListener("keydown", handleGlobalKeyboard);
 
@@ -144,9 +138,6 @@ function handleSearch(e: Event): void {
 
 // Handle category filtering
 function handleCategoryFilter(category: string): void {
-  console.log("🏷️ Category filter clicked:", category);
-  console.log("🔄 BookmarkManager exists:", !!bookmarkManager);
-
   // Clear search
   searchInput.value = "";
 

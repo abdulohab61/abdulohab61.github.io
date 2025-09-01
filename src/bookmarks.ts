@@ -29,22 +29,22 @@ export class BookmarkManager {
   refreshData(): void {
     this.bookmarks = [...sampleBookmarks];
     this.currentBookmarks = [...sampleBookmarks];
-    console.log(
-      "BookmarkManager data refreshed:",
-      this.bookmarks.length,
-      "bookmarks"
-    );
+    // console.log(
+    //   "BookmarkManager data refreshed:",
+    //   this.bookmarks.length,
+    //   "bookmarks"
+    // );
   }
 
   // Render bookmarks to DOM
   renderBookmarks(bookmarks: Bookmark[]): void {
-    console.log("🖼️ Rendering bookmarks:", bookmarks.length, "items");
-    console.log(
-      "📋 First few bookmarks:",
-      bookmarks
-        .slice(0, 3)
-        .map((b) => ({ title: b.title, category: b.category }))
-    );
+    // console.log("🖼️ Rendering bookmarks:", bookmarks.length, "items");
+    // console.log(
+    //   "📋 First few bookmarks:",
+    //   bookmarks
+    //     .slice(0, 3)
+    //     .map((b) => ({ title: b.title, category: b.category }))
+    // );
 
     if (bookmarks.length === 0) {
       this.bookmarksContainer.classList.add("hidden");
@@ -112,12 +112,12 @@ export class BookmarkManager {
 
   // Filter bookmarks by category
   filterByCategory(category: string): void {
-    console.log("📋 Filtering bookmarks by category:", category);
-    console.log("📊 Total bookmarks:", this.bookmarks.length);
+    // console.log("📋 Filtering bookmarks by category:", category);
+    // console.log("📊 Total bookmarks:", this.bookmarks.length);
 
-    // Get fresh category buttons (in case they were dynamically created)
+    // // Get fresh category buttons (in case they were dynamically created)
     const categoryButtons = document.querySelectorAll(".category-btn");
-    console.log("🔘 Found category buttons:", categoryButtons.length);
+    // console.log("🔘 Found category buttons:", categoryButtons.length);
 
     // Update active button
     categoryButtons.forEach((btn) => {
@@ -140,16 +140,16 @@ export class BookmarkManager {
       this.currentBookmarks = this.bookmarks.filter(
         (bookmark) => bookmark.category === category
       );
-      console.log(
-        `🔍 Filtered for category "${category}":`,
-        this.currentBookmarks.map((b) => ({
-          title: b.title,
-          category: b.category,
-        }))
-      );
+      // console.log(
+      //   `🔍 Filtered for category "${category}":`,
+      //   this.currentBookmarks.map((b) => ({
+      //     title: b.title,
+      //     category: b.category,
+      //   }))
+      // );
     }
 
-    console.log("✅ Filtered bookmarks count:", this.currentBookmarks.length);
+    // console.log("✅ Filtered bookmarks count:", this.currentBookmarks.length);
     this.renderBookmarks(this.currentBookmarks);
   }
 

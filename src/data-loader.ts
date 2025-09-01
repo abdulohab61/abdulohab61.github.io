@@ -20,7 +20,7 @@ async function loadBookmarksData(): Promise<BookmarksData> {
   try {
     // Add cache busting to ensure fresh data
     const timestamp = new Date().getTime();
-    const response = await fetch(`/bookmarks.yml?t=${timestamp}`);
+    const response = await fetch(`./bookmarks.yml?t=${timestamp}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch bookmarks.yml: ${response.status}`);
     }

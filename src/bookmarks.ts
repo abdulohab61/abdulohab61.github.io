@@ -60,7 +60,7 @@ export class BookmarkManager {
                 <p class="text-nord-4 text-xs mb-1 line-clamp-1">${
                   bookmark.description
                 }</p>
-                <span class="text-xs text-nord-4 opacity-70 truncate">${
+                <span class="text-xs text-nord-4 opacity-70 truncate block overflow-hidden whitespace-nowrap">${
                   bookmark.url
                 }</span>
                 <div class="flex items-center gap-2 mt-1">

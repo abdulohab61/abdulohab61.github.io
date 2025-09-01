@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [tailwindcss()],
-  base: "/open-bookmarks-homepage/", // Your GitHub repository name
+  base: "/", // Main site root
   build: {
     outDir: "dist",
     assetsDir: "assets",

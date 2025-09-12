@@ -3,7 +3,7 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - source  # Trigger on source branch, deploy to main
+      - main  # Trigger on source branch, deploy to main
   workflow_dispatch:
 
 jobs:

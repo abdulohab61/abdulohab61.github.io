@@ -57,9 +57,7 @@ export class BookmarkManager {
                 <h3 class="font-semibold text-base text-nord-6 mb-0 truncate">${
                   bookmark.title
                 }</h3>
-                <p class="text-nord-4 text-xs mb-1 line-clamp-1">${
-                  bookmark.description
-                }</p>
+                <p class="text-nord-4 text-xs mb-1">${bookmark.description}</p>
                 <span class="text-xs text-nord-4 opacity-70 truncate block overflow-hidden whitespace-nowrap">${
                   bookmark.url
                 }</span>

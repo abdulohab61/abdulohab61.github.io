@@ -27,10 +27,6 @@ async function loadBookmarksData(): Promise<BookmarksData> {
     const yamlText = await response.text();
     const data = yaml.load(yamlText) as BookmarksData;
 
-    // console.log("✅ Loaded bookmarks data:", {
-    //   categoriesCount: data.categories?.length || 0,
-    //   bookmarksCount: data.bookmarks?.length || 0,
-    // });
     return data;
   } catch (error) {
     console.error("Error loading bookmarks data:", error);
@@ -88,11 +84,6 @@ async function updateSynchronousExports(): Promise<void> {
 
     Object.keys(categoryColors).forEach((key) => delete categoryColors[key]);
     Object.assign(categoryColors, bookmarksData.categoryColors);
-
-    // console.log("Updated synchronous exports:", {
-    //   bookmarksCount: sampleBookmarks.length,
-    //   colorsCount: Object.keys(categoryColors).length,
-    // });
 
     // Dispatch custom event to notify components
     window.dispatchEvent(

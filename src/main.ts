@@ -27,39 +27,77 @@ async function renderCategories(): Promise<void> {
     // Clear existing category buttons
     categoryContainer.innerHTML = "";
 
-    // Create category buttons
-    categories.forEach((category, index) => {
-      const button = document.createElement("button");
-      button.className = `category-btn ${
-        index === 0 ? "active" : ""
-      } px-4 py-2 rounded-lg ${
-        index === 0 ? "bg-nord-8 text-nord-0" : "bg-nord-2 text-nord-4"
-      } font-medium transition-all hover:bg-nord-3 hover:text-nord-6`;
+    // Create "All" button first
+    const allButton = document.createElement("button");
+    allButton.className = `category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6`;
+    allButton.setAttribute("data-category", "all");
+    allButton.textContent = "All";
 
-      button.setAttribute("data-category", category);
-
-      // Generate display name dynamically
-      const getDisplayName = (cat: string): string => {
-        const specialNames: Record<string, string> = {
-          ai: "AI Tools",
-          pdf: "PDF Tools",
-          cp: "Competitive Programming",
-          torrent: "Archives",
-        };
-
-        return specialNames[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
-      };
-
-      button.textContent = getDisplayName(category);
-
-      // Add click event listener
-      button.addEventListener("click", () => {
-        const categoryType = button.getAttribute("data-category") as string;
-        handleCategoryFilter(categoryType);
+    // Add click event listener for All button
+    allButton.addEventListener("click", () => {
+      // Remove active class from all buttons
+      const allButtons = document.querySelectorAll(".category-btn");
+      allButtons.forEach((btn) => {
+        btn.className =
+          "category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6";
       });
 
-      categoryContainer.appendChild(button);
+      // Add active class to All button
+      allButton.className =
+        "category-btn active px-4 py-2 rounded-lg bg-nord-8 text-nord-0 font-medium transition-all hover:bg-nord-3 hover:text-nord-6";
+
+      // Clear search and show all bookmarks
+      searchInput.value = "";
+      bookmarkManager.filterByCategory("all");
+      bookmarkManager.resetSelection();
     });
+
+    categoryContainer.appendChild(allButton);
+
+    // Create category buttons
+    categories
+      .filter((category) => category !== "all") // Filter out "all" to avoid duplicate
+      .forEach((category) => {
+        const button = document.createElement("button");
+        button.className = `category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6`;
+
+        button.setAttribute("data-category", category);
+
+        // Generate display name dynamically
+        const getDisplayName = (cat: string): string => {
+          const specialNames: Record<string, string> = {
+            ai: "AI Tools",
+            pdf: "PDF Tools",
+            cp: "Competitive Programming",
+            torrent: "Archives",
+          };
+
+          return (
+            specialNames[cat] || cat.charAt(0).toUpperCase() + cat.slice(1)
+          );
+        };
+
+        button.textContent = getDisplayName(category);
+
+        // Add click event listener
+        button.addEventListener("click", () => {
+          // Remove active class from all buttons
+          const allButtons = document.querySelectorAll(".category-btn");
+          allButtons.forEach((btn) => {
+            btn.className =
+              "category-btn px-4 py-2 rounded-lg bg-nord-2 text-nord-4 font-medium transition-all hover:bg-nord-3 hover:text-nord-6";
+          });
+
+          // Add active class to clicked button
+          button.className =
+            "category-btn active px-4 py-2 rounded-lg bg-nord-8 text-nord-0 font-medium transition-all hover:bg-nord-3 hover:text-nord-6";
+
+          const categoryType = button.getAttribute("data-category") as string;
+          handleCategoryFilter(categoryType);
+        });
+
+        categoryContainer.appendChild(button);
+      });
   } catch (error) {
     console.error("Error rendering categories:", error);
   }
@@ -83,10 +121,10 @@ async function init(): Promise<void> {
     // Get DOM elements
     searchInput = document.getElementById("searchInput") as HTMLInputElement;
 
-    // Ensure data is loaded in BookmarkManager
+    // Just refresh data without automatically showing bookmarks
     setTimeout(() => {
       bookmarkManager.refreshData();
-      bookmarkManager.renderBookmarks(bookmarkManager.getCurrentBookmarks());
+      // Don't render bookmarks initially - wait for user interaction
     }, 100);
 
     // Setup event listeners
